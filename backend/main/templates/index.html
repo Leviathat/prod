@@ -1,0 +1,159 @@
+{% extends 'base_frames/base.html' %}
+{% load static %}
+
+{% block head_scripts %}
+    <script src="https://cdn.tailwindcss.com"></script>
+{% endblock head_scripts %}
+
+{% block title %}
+
+    <title>Title</title>
+{% endblock title %}
+
+
+{% block content %}
+
+    {#  PRODUCT CARDS  #}
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-2/3 mx-auto mb-12">
+
+        {% for product in products %}
+            <div class="bg-white shadow-md hover:scale-105 translate-y-6 hover:shadow-xl duration-500">
+                <a href="{% url 'product-detail' product.pk %}">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}"
+                         alt="Product image" class="w-full h-72 object-cover"/>
+                {% else %}
+                    <img src="{% static 'default/default-product-image.png' %}"
+                         alt="Product image" class="w-full h-72 object-cover"/>
+                {% endif %}
+                </a>
+
+                {#                    <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?crop=entropy&cs=tinysrgb&fm=jpg&ixid=MnwzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2NTgzODM0NDU&ixlib=rb-1.2.1&q=80"#}
+                {#                         alt="Product image" class="w-full h-72 object-cover"/>#}
+                <div class="px-4 py-3 w-full">
+                    <div class="flex items-center">
+                        <span class="text-gray-400 mr-3 uppercase text-xs">{{ product.brand }}</span>
+                        <div class="ml-auto flex">
+
+                            {% if product.sold %}
+                                <div class="flex items-center bg-orange-600 px-1 pb-0.5">
+                                    <span class="text-slate-100 uppercase text-center font-semibold text-xs">SOLD</span>
+                                </div>
+                            {% else %}
+                                {% if product.sale_price %}
+                                    <div class="flex items-center bg-rose-500 px-1 pb-0.5">
+                                        <span class="text-slate-100 uppercase text-center font-semibold text-xs">SALE</span>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+                    <p class="text-lg font-bold text-black truncate block capitalize"> {{ product.name }}</p>
+                    <div class="flex items-center">
+                        {% if product.sale_price %}
+                            <p class="text-lg font-semibold text-black cursor-auto my-3">{{ product.sale_price }} ₸</p>
+                            <del>
+                                <p class="text-sm text-gray-600 cursor-auto ml-2">{{ product.price }} ₸</p>
+                            </del>
+                        {% else %}
+                            <p class="text-lg font-semibold text-black cursor-auto my-3">{{ product.price }} ₸</p>
+                        {% endif %}
+                        <div class="ml-auto" v-on:click="add_to_cart({{ product.product_info }})">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                 class="bi bi-bag-plus cursor-pointer" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+    {#  PRODUCT CARDS END #}
+
+    {# PAGINATION #}
+    <div class="w-5/6 md:max-w-lg mx-auto fixed inset-x-0 bottom-0 mb-5">
+        <div class="flex justify-center">
+            <ul class="pagination list-none bg-white p-2 shadow-sm rounded">
+
+                {# FIRST & PREVIOUS #}
+                {% if page_obj.has_previous %}
+                    {# FIRST #}
+                    <li class="pagination-item inline-block">
+                        <a role="button"
+                           class="rounded-r rounded-sm border border-gray-100 px-3 py-2 hover:bg-gray-100 text-gray-600 no-underline"
+                           href="?page=1">«</a>
+                    </li>
+                    {# PREVIOUS #}
+                    <li class="pagination-item inline-block hidden md:inline-block">
+                        <button type="button" disabled="disabled"
+                                aria-label="Go to previous page"
+                                class="rounded-sm border border-gray-100 px-3 py-2 hover:bg-gray-100 text-gray-600 no-underline mx-2 text-sm">
+                            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+                        </button>
+                    </li>
+                    <li class="pagination-item inline-block">
+                        <a href="?page={{ page_obj.previous_page_number }}"
+                           role="button"
+                           class="rounded-sm border border-gray-100 px-3 py-2 hover:bg-gray-100 text-gray-600 no-underline mx-2">
+                            {{ page_obj.previous_page_number }}
+                        </a>
+                    </li>
+                {% endif %}
+                {# FIRST & PREVIOUS END #}
+
+                {# CURRENT #}
+
+                <li class="pagination-item inline-block py-2">
+                    <span class="rounded-sm border border-indigo-100 px-3 py-2 bg-indigo-100 no-underline text-indigo-500 mx-2">
+                        {{ page_obj.number }}
+                    </span>
+                </li>
+
+                {# CURRENT END #}
+
+                {# NEXT PAGE #}
+                {% if page_obj.has_next %}
+                    <li class="pagination-item inline-block">
+                        <a href="?page={{ page_obj.next_page_number }}"
+                           role="button"
+                           class="rounded-sm border border-gray-100 px-3 py-2 hover:bg-gray-100 text-gray-600 no-underline mx-2">
+                            {{ page_obj.next_page_number }}
+                        </a>
+                    </li>
+                    <li class="pagination-item inline-block  hidden md:inline-block">
+                        <a href="?page={{ page_obj.next_page_number }}"
+                           role="button"
+                           class="rounded-sm border border-gray-100 px-3 py-2 hover:bg-gray-100 text-gray-600 no-underline mx-2">
+                            Next
+                        </a>
+                    </li>
+
+                {% endif %}
+                {# NEXT PAGE END #}
+                {% if page_obj.number == page_obj.paginator.num_pages %}
+                {% else %}
+                    {# LAST PAGE #}
+                    <li class="pagination-item inline-block">
+                        <a role="button"
+                           class="rounded-r rounded-sm border border-gray-100 px-3 py-2 hover:bg-gray-100 text-gray-600 no-underline"
+                           href="?page={{ page_obj.paginator.num_pages }}">»</a>
+                    </li>
+                    {# LAST PAGE END #}
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    {# PAGINATION END #}
+
+{% endblock content %}
+
+
+{% block any_js %}
+
+{% endblock any_js %}
