@@ -25,15 +25,20 @@ class Product(models.Model):
     image = models.ImageField(verbose_name='Изображение', blank=True, upload_to="images/product/", null=True)
     sold = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = 'Продукты'
+        verbose_name = 'Продукт'
+
     @property
     def product_info(self):
         return json.dumps({
                             'id': self.pk,
                             'name': self.name,
                             'type': self.type,
-                            'brand': self.brand.name,
+                            'brand': self.brand.name if self.brand else None,
                             'price': self.price,
                             'sale': self.sale_price,
+                            'image': self.image.url if self.image else None
                            })
 
     def __str__(self):
