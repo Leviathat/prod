@@ -6,14 +6,14 @@
 {% endblock head_scripts %}
 
 {% block title %}
-    <title>{{ product.brand }} {{ product.name }}</title>
+    <title>{{ product.name }}</title>
 {% endblock title %}
 
 
 {% block content %}
 
     {#  PRODUCT  #}
-    <div class="w-full">
+    <div class="w-full mt-28 md:mt-36">
         <div class="bg-purple-100
                     mx-auto
                     md:w-2/3 md:h-5/6
@@ -44,30 +44,48 @@
                                 object-cover"/>
                 {% endif %}
             </div>
+
             <div class="flex flex-col md:w-1/2 w-full">
                 <div class="w-full flex justify-between mb-5 bg-white
                             rounded-r-xl p-5
                             ">
                     <span class="text-2xl font-bold text-gray-800">
-                        {{ product.brand }} {{ product.name }}
+                        {% if product.brand  %}
+                            {{ product.brand }}
+                        {% endif %}
+                        {{ product.name }}
                     </span>
                     <span class="text-purple-800 text-xl font-semibold">
                         {{ product.price }} ₸
                     </span>
                 </div>
-                <button v-on:click="add_to_cart({{ product.product_info }})"
-                        class="bg-white
+                <div class="w-full flex flex-row justify-between py-2 px-4">
+                    <div class="flex flex-col justify-center cursor-pointer group">
+                        <div class="rounded group-hover:bg-white duration-300 p-1">
+
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                 stroke="currentColor" class="w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"/>
+                            </svg>
+                        </div>
+
+                    </div>
+                    <button v-on:click="add_to_cart({{ product.product_info }})"
+                            class="place-self-center
+                               relative
+                               bg-white
+                               justify-self-end
                                hover:bg-indigo-400
                                hover:text-white
                                duration-200
+
                                rounded-md
-                               mt-auto
+
                                w-4/5
                                md:w-1/2
-                               py-3
-                               place-self-center
-                               relative
-                               ">
+
+                               py-3">
                         <div class="absolute translate-y-0.5 left-3 inset-y-0 top-1/4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                                  class="bi bi-bag-plus cursor-pointer" viewBox="0 0 16 16">
@@ -79,7 +97,8 @@
                         <span>
                         Добавить в корзину
                         </span>
-                </button>
+                    </button>
+                </div>
             </div>
         </div>
 

@@ -1,0 +1,41 @@
+.alerts-list {
+  animation-name: alerts;
+  animation-duration: .2s;
+  animation-delay: 1s;
+}
+
+@keyframes alerts {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: .75;
+  }
+  50% {
+      opacity: .5;
+  }
+  75% {
+    opacity: .25;
+  }
+  100% {
+    opacity: 0;
+    left: 100%;
+    display: none;
+  }
+}
+@-webkit-keyframes alerts {
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    left: 100%;
+    display: none;
+  }
+}

@@ -38,6 +38,7 @@ class Product(models.Model):
                             'brand': self.brand.name if self.brand else None,
                             'price': self.price,
                             'sale': self.sale_price,
+                            'sold': self.sold,
                             'image': self.image.url if self.image else None
                            })
 
@@ -49,18 +50,18 @@ class Customer(models.Model):
     name = models.CharField(max_length=255, null=True, verbose_name="Имя покупателя")
     surname = models.CharField(max_length=255, null=True, verbose_name="Фамилия покупателя")
     number = models.CharField(max_length=255, null=True, verbose_name="Номер телефона покупателя")
+    email = models.EmailField(db_index=True, unique=True)
 
     def __str__(self):
         return f'{self.surname} {self.name}, Номер: {self.number}'
 
 
 class Cart(models.Model):
-    date_ordered = models.DateTimeField(auto_now_add=True)
-    complete = models.BooleanField(default=False)
-    transaction_id = models.CharField(max_length=100, null=True, unique=True)
+    date_ordered = models.DateTimeField(auto_now_add=True, blank=True, editable=False)
+    transaction_id = models.CharField(max_length=100, null=True, unique=True, blank=True)
 
     def __str__(self):
-        return str(self.customer)
+        return str(self.transaction_id)
 
     @property
     def cart_total(self):
@@ -79,10 +80,23 @@ class Cart(models.Model):
 
 
 class CartProduct(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True, blank=True)
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, blank=True)
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, null=True, blank=True)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True)
+    quantity = models.PositiveSmallIntegerField(default=1, null=False, blank=False)
+
+    def __str__(self):
+        return str(self.cart.id)
 
 
 class Order(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True)
-    cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True, blank=True)
+    cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True, blank=True, related_name='order')
+    address = models.ForeignKey('Address', on_delete=models.SET_NULL, null=True, blank=True)
+    status = models.SmallIntegerField(choices=settings.CITY, default=1)
+    complete = models.BooleanField(default=False, blank=True)
+
+
+class Address(models.Model):
+    city = models.CharField(max_length=25, choices=settings.CITY)
+    street = models.CharField(max_length=255, blank=False, null=False)
+    house = models.CharField(max_length=255, blank=False, null=False)

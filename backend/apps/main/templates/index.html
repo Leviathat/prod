@@ -14,27 +14,27 @@
 {% block content %}
 
     {#  PRODUCT CARDS  #}
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-2/3 mx-auto mb-12">
+    <div class="mt-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 w-2/3 mx-auto mb-12">
 
         {% for product in products %}
             <div class="bg-white shadow-md hover:scale-105 translate-y-6 hover:shadow-xl duration-500">
                 <a href="{% url 'product-detail' product.pk %}">
-                {% if product.image %}
-                    <img src="{{ product.image.url }}"
-                         alt="Product image" class="w-full h-72 object-cover"/>
-                {% else %}
-                    <img src="{% static 'default/default-product-image.png' %}"
-                         alt="Product image" class="w-full h-72 object-cover"/>
-                {% endif %}
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}"
+                             alt="Product image" class="w-full h-72 object-cover"/>
+                    {% else %}
+                        <img src="{% static 'default/default-product-image.png' %}"
+                             alt="Product image" class="w-full h-72 object-cover"/>
+                    {% endif %}
                 </a>
 
                 <div class="px-4 py-3 w-full">
                     <div class="flex items-center">
                         <span class="text-gray-400 mr-3 uppercase text-xs">
                             {% if product.brand %}
-                            {{ product.brand }}
+                                {{ product.brand }}
                             {% else %}
-                            Неизвестно
+                                Неизвестно
                             {% endif %}
                         </span>
                         <div class="ml-auto flex">

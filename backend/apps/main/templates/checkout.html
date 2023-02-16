@@ -13,23 +13,28 @@
 
 {% block content %}
 
-    {#  PRODUCT  #}
-    <div class="sm:w-full md:w-5/6 mx-auto">
+    {#  CHECKOUT  #}
+    <div class="mt-20 md:mt-36 sm:w-full md:w-2/3 mx-auto">
         <div class="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
             <a href="#" class="text-2xl font-bold text-gray-800">Оформление заказа</a>
-            <div class="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
+            <div class="mt-4 py-2 text-sm sm:mt-0 sm:ml-auto sm:text-lg">
                 <div class="relative">
                     <ul class="relative flex w-full items-center justify-between space-x-2 sm:space-x-4">
+                        {#                        <li class="flex items-center space-x-3 text-left sm:space-x-4">#}
+                        {#                            <a class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-200 text-xs font-semibold text-emerald-700"#}
+                        {#                               href="#"#}
+                        {#                            >#}
+                        {#                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"#}
+                        {#                                     stroke="currentColor" stroke-width="2">#}
+                        {#                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>#}
+                        {#                                </svg#}
+                        {#                                >#}
+                        {#                            </a>#}
+                        {#                            <span class="font-semibold text-gray-900">Заказ</span>#}
+                        {#                        </li>#}
                         <li class="flex items-center space-x-3 text-left sm:space-x-4">
-                            <a class="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-200 text-xs font-semibold text-emerald-700"
-                               href="#"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
-                                     stroke="currentColor" stroke-width="2">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
-                                </svg
-                                >
-                            </a>
+                            <a class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-600 text-xs font-semibold text-white ring ring-gray-600 ring-offset-2"
+                               href="#">2</a>
                             <span class="font-semibold text-gray-900">Заказ</span>
                         </li>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
@@ -37,9 +42,9 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
                         </svg>
                         <li class="flex items-center space-x-3 text-left sm:space-x-4">
-                            <a class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-600 text-xs font-semibold text-white ring ring-gray-600 ring-offset-2"
-                               href="#">2</a>
-                            <span class="font-semibold text-gray-900">Доставка</span>
+                            <a class="flex h-6 w-6 items-center justify-center rounded-full bg-gray-400 text-xs font-semibold text-white"
+                               href="#">3</a>
+                            <span class="font-semibold text-gray-500">Доставка</span>
                         </li>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
                              viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -55,13 +60,16 @@
             </div>
         </div>
 
-        <div class="grid lg:grid-cols-2 bg-white">
+        {# IF COOKIE EXISTS #}
+        <div v-if="cart" class="grid lg:grid-cols-2 bg-white">
+
             <div class="px-4 pt-8">
                 <p class="text-xl font-medium">Корзина </p>
                 <p class="text-gray-400">Проверьте наличие всех желаемых товаров в вашей корзине</p>
 
-                <div class="mt-8 space-y-3 rounded-lg border bg-white px-2 py-4 sm:px-6">
-                    <div v-for="item in cart" class="flex flex-col rounded-lg bg-white sm:flex-row">
+                <div class="mt-8 space-y-3 rounded-lg border bg-zinc-100 px-2 py-4 sm:px-6">
+                    <div v-if="cart_total != 0" v-for="item in cart"
+                         class="flex flex-col rounded-lg bg-white sm:flex-row">
                         <img v-if="item.image_url" class="m-2 w-28 h-28 rounded-md border object-cover object-center"
                              :src="[[item.image_url]]"
                              alt=""/>
@@ -74,19 +82,23 @@
                             <p class="text-lg font-bold">₸ [[ item.price ]]</p>
                         </div>
                     </div>
-
+                    <div v-else class="flex flex-col rounded-lg bg-white sm:flex-row px-5 py-5">
+                        <p class="text-gray-500 text-xl font-bold">
+                            Ваша корзина пуста
+                        </p>
+                    </div>
                 </div>
 
             </div>
 
-            <div class="mt-10 bg-gray-50 px-4 pt-8 lg:mt-0">
+            <div class="mt-10 bg-zinc-50 px-4 pt-8 lg:mt-0">
                 <p class="text-xl font-medium">Детали заказа</p>
                 <p class="text-gray-400">Укажите контактную информацию для дальнейшей консультации менеджера</p>
                 <div class="">
                     <label for="email" class="mt-4 mb-2 block text-sm font-medium">Почта</label>
                     <div class="relative">
-                        <input type="text" id="email" name="email"
-                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                        <input type="text" id="email" v-model="email" name="email"
+                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
                                placeholder="your.email@gmail.com"/>
                         <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
@@ -99,8 +111,8 @@
 
                     <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Как к вам обращаться ?</label>
                     <div class="relative">
-                        <input type="text" id="card-holder" name="card-holder"
-                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm uppercase shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                        <input type="text" id="card-holder" v-model="fio" name="card-holder"
+                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
                                placeholder="ФИО"/>
                         <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
@@ -110,13 +122,13 @@
                             </svg>
                         </div>
                     </div>
-
                     {# PHONE NUMBBER #}
                     <label for="card-no" class="mt-4 mb-2 block text-sm font-medium">Номер телефона</label>
                     <div class="flex">
                         <div class="relative w-7/12 flex-shrink-0">
-                            <input type="text" id="card-no" name="card-no"
-                                   class="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                            <input type="number" id="card-no" name="card-no"
+                                   v-model="phone"
+                                   class="appearance-none w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="7-xxx-xx-xx"/>
                             <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
@@ -132,11 +144,17 @@
                     <label for="billing-address" class="mt-4 mb-2 block text-sm font-medium">Адрес доставки</label>
                     <div class="flex flex-col sm:flex-row mb-2">
 
-                        <div class="relative flex-shrink-0 sm:w-7/12">
+                        <div class="relative flex-shrink-0 sm:w-7/12 md:w-1/2">
 
-                            <select type="text" name="billing-state"
-                                    class="w-full rounded-md border border-gray-200 px-4 py-3 pl-8 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500">
-                                <option value="State">Город</option>
+                            <select name="billing-state"
+                                    v-model="city"
+                                    class="w-full rounded-md border border-gray-200 px-4 py-3 pl-8 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+                                    required
+                            >
+                                <option value="" disabled selected hidden>Выберите город</option>
+                                {% for key, value in cities %}
+                                    <option value="{{ key }}">{{ value }}</option>
+                                {% endfor %}
                             </select>
                             <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                 <img class="h-4 w-4 object-contain"
@@ -146,13 +164,37 @@
                     </div>
 
                     <div class="flex flex-col sm:flex-row">
-                        <input type="text" id="billing-address" name="billing-address"
-                               class="w-1/2 rounded-md border border-gray-200 px-4 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+
+                        <input type="text" name="billing-zip"
+                               v-model="street"
+                               class="flex-shrink-0
+                                      rounded-md
+                                      border
+                                      border-gray-200
+                                      px-4 py-3 mt-2
+                                      md:mt-0
+                                      text-sm shadow-sm
+                                      outline-none
+                                      md:w-1/2
+                                      focus:border-blue-500
+                                      focus:ring-blue-500"
                                placeholder="Улица"/>
 
                         <input type="text" name="billing-zip"
-                               class="flex-shrink-0 rounded-md border border-gray-200 px-4 py-3 mt-2 md:ml-2 md:mt-0 text-sm shadow-sm outline-none sm:w-1/6 focus:z-10 focus:border-blue-500 focus:ring-blue-500"
-                               placeholder="Квартира"/>
+                               v-model="house"
+                               class="flex-shrink-0
+                                      rounded-md
+                                      border
+                                      border-gray-200
+                                      px-4 py-3 mt-2
+                                      md:ml-2 md:mt-0
+                                      text-sm shadow-sm
+                                      outline-none
+                                      md:w-1/2
+                                      focus:z-10
+                                      focus:border-blue-500
+                                      focus:ring-blue-500"
+                               placeholder="Квартира / Дом"/>
                     </div>
                     <!-- Total -->
                     <div class="mt-6 border-t border-b py-2">
@@ -167,16 +209,32 @@
                     </div>
                     <div class="mt-6 flex items-center justify-between">
                         <p class="text-sm font-medium text-gray-900">Сумма</p>
-                        <p class="text-2xl font-semibold text-gray-900">₸ </p>
+                        <p class="text-2xl font-semibold text-gray-900">₸ [[ cart_summary ]]</p>
                     </div>
                 </div>
-                <button class="mt-4 mb-8 w-full rounded-md bg-gray-900 px-6 py-3 font-medium text-white">
+                <button v-on:click="make_order"
+                        class="mt-4 mb-8 w-full rounded-lg duration-300 text-indigo-400 border-2 border-indigo-400 hover:bg-indigo-400 hover:text-white px-6 py-3 font-medium text-white">
                     Оформить заказ
                 </button>
+            </div>
+
+        </div>
+
+        {# IF COOKIE MISS #}
+        <div v-else class="grid lg:grid-cols-1 bg-white">
+            <div class="flex flex-col rounded-lg bg-white sm:flex-row px-10 py-10">
+                <p class="text-gray-500 text-xl font-bold">
+                    Ваша корзина пуста
+                </p>
             </div>
         </div>
 
     </div>
-    {#  PRODUCT  END #}
+    {#  CHECKOUT  END #}
 
 {% endblock content %}
+{% block any_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"
+            integrity="sha512-JEXkqJItqNp0+qvX53ETuwTLoz/r1Tn5yTRnZWWz0ghMKM2WFCEYLdQnsdcYnryMNANMAnxNcBa/dN7wQtESdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock any_js %}

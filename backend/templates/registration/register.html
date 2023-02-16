@@ -1,3 +1,196 @@
 {% extends 'base_frames/base.html' %}
+{% load static %}
+
+{% block head_scripts %}
+    <script src="https://cdn.tailwindcss.com"></script>
+{% endblock head_scripts %}
+
+{% block title %}
+    <title>Регистрация</title>
+{% endblock title %}
+
+
 {% block content %}
+    {#  REGISTER  #}
+    <div class="mt-20 md:mt-36 sm:w-full md:w-2/3 mx-auto">
+        <div class="flex flex-col items-center justify-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
+            <a href="#" class="text-2xl font-bold text-gray-800">Регистрация</a>
+        </div>
+
+        {# FORM #}
+        <div class="grid lg:grid-cols-2 bg-white">
+
+            <div class="px-4 md:px-0 pt-8 group flex flex-col justify-between">
+                <div class="w-full text-center">
+                    <p class="text-xl font-medium">Номер телефона </p>
+                    <p class="text-gray-400">Введите номер телефона для дальнейшей верификации</p>
+                </div>
+
+                <div class="relative w-full flex flex-col items-center justify-center mt-4">
+                    <div class="flex">
+                        <div class="relative w-full">
+                            <div class="form w-full flex flex-row justify-between px-auto">
+                                <input type="number" id="card-no" name="card-no"
+                                       v-model="phone"
+                                       class="border border-gray-200
+                                              focus:border-blue-500 focus:ring-blue-500
+                                              invalid:border-red-500 invalid:ring-red-500
+                                              w-full
+                                              p-4
+                                              px-2 py-3 pl-11
+                                              rounded-md
+                                              text-sm shadow-sm outline-none"
+                                       min="77000000000"
+                                       max="79000000000"
+                                       required
+                                       placeholder="7-xxx-xx-xx"/>
+                                <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
+                                         class="bi bi-telephone-inbound-fill" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.678.678 0 0 0 .178.643l2.457 2.457a.678.678 0 0 0 .644.178l2.189-.547a1.745 1.745 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.634 18.634 0 0 1-7.01-4.42 18.634 18.634 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877L1.885.511zM15.854.146a.5.5 0 0 1 0 .708L11.707 5H14.5a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5v-4a.5.5 0 0 1 1 0v2.793L15.146.146a.5.5 0 0 1 .708 0z"/>
+                                    </svg>
+                                </div>
+                                <button :disabled="phone && phone.toString().length != 11" v-on:click="send_otp"
+                                        class="ml-2 px-2 rounded-lg font-medium text-indigo-400 border-2 border-indigo-400 hover:bg-indigo-400 hover:text-white duration-300">
+                                    Отправить
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-full mt-5 scale-y-0 duration-200"
+                         :class="{'scale-y-100 block': otp_sent}"
+                    >
+                        <div class="bg-zinc-50 h-64 py-3 rounded text-center">
+                            <h1 class="text-xl font-medium">Верификация</h1>
+                            <div class="flex flex-col mt-4">
+                                <span>Введите ПИН-код отправленный по номеру</span>
+                                <span class="font-bold">+7********75</span>
+                            </div>
+
+                            <div id="otp" class="flex flex-row justify-center text-center px-2 mt-5">
+                                <input v-model="otp"
+                                       class="border ring-0 focus:ring-0 invalid:border-2 invalid:border-red-500 m-2 h-10 text-center rounded tracking-widest"
+                                       type="number" id="otp" max="9999" min="1000" autocomplete="none"
+                                       placeholder="XXXX"/>
+                            </div>
+                            [[verified ]]
+                            <div class="flex justify-center text-center mt-5">
+                                <a class="flex items-center text-gray-400 hover:text-blue-900 cursor-pointer"><span
+                                        class="font-bold">Resend OTP</span><i
+                                        class='bx bx-caret-right ml-1'></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-full absolute bottom-0 mt-5 scale-y-0 duration-200"
+                         :class="{'scale-y-100': verified}">
+                        <div class="relative bg-zinc-50 h-64 rounded text-center flex flex-col justify-center">
+                            <h1 class="absolute top-5 w-full text-center text-md font-medium text-gray-500">Верификация
+                                пройдена</h1>
+                            <a class="flex h-36 w-36 items-center mx-auto justify-center rounded-full bg-emerald-200 text-xs font-semibold text-emerald-700"
+                               href="#"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+                                </svg
+                                >
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="bg-zinc-100 px-4 lg:mt-0 duration-400" :class="{'':!verified}">
+                <div class="w-full">
+                    <label for="email" class="mt-4 mb-2 block text-sm font-medium">Почта</label>
+                    <div class="relative">
+                        <input type="text" id="email" v-model="email" name="email"
+                               class="disabled w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                               placeholder="your.email@gmail.com"
+                               :disabled="!verified"/>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Как к вам обращаться ?</label>
+                    <div class="relative">
+                        <input type="text" id="fio" v-model="fio" name="card-holder"
+                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                               placeholder="ФИО"
+                               :disabled="!verified"/>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Введите пароль</label>
+                    <div class="relative">
+                        <input type="password" id="card-holder" v-model="pass" name="card-holder"
+                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                               placeholder="Пароль"
+                               :disabled="!verified"/>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Повтрите ваш пароль</label>
+                    <div class="relative">
+                        <input type="password" id="card-holder" v-model="pass_rep" name="card-holder"
+                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
+                               placeholder="Проследите за тем чтобы пароли совпадали"
+                               :disabled="!verified"/>
+                        <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
+                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                      d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5zm6-10.125a1.875 1.875 0 11-3.75 0 1.875 1.875 0 013.75 0zm1.294 6.336a6.721 6.721 0 01-3.17.789 6.721 6.721 0 01-3.168-.789 3.376 3.376 0 016.338 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                </div>
+                <button v-on:click="register"
+                        :disabled="!verified"
+                        class="mt-4 mb-8 w-full rounded-lg duration-300
+                               text-indigo-400 border-2 border-indigo-400
+                               enabled:hover:bg-indigo-400 hover:text-white
+                               x-6 py-3 font-medium
+                               disabled:text-gray-400
+                               disabled:border-gray-400
+                               disabled:bg-white-400">
+                    Зарегистрироваться
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+    {#  REGISTER  END #}
+
+
 {% endblock content %}
+
+{% block any_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"
+            integrity="sha512-JEXkqJItqNp0+qvX53ETuwTLoz/r1Tn5yTRnZWWz0ghMKM2WFCEYLdQnsdcYnryMNANMAnxNcBa/dN7wQtESdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock any_js %}

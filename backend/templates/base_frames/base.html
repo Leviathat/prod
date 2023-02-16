@@ -4,52 +4,44 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-
+    <link rel = "icon" src="" type = "image">
     {% block title %}
     {% endblock title %}
     {% block head_scripts %}
     {% endblock head_scripts %}
     <script type="module" src="{% static 'Js/Vue/app.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'alerts.css' %}">
+    <link rel="stylesheet" href="{% static 'default.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
 </head>
 <body class="bg-indigo-400">
+
 <div class="wrapper" id="wrapper">
+    {% include 'base_frames/frames/alerts/alerts.html' %}
     <div class="fixed
                 top-0
                 bg-white z-50
                 w-screen
                 h-screen
-                text-indigo-400
+                duration-300
                 "
-                :class="{'hidden': rendered}"
+                :class="{'invisible': rendered}"
                 >
 
 
         <div class="w-full
                     h-full
+                    text-center
+                    content-center
+                    grid grid-cols-1 gap-4
                     ">
-            <svg class="mt-96 mx-auto" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg"
-                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.0" width="64px" height="64px"
-                 viewBox="0 0 128 128" xml:space="preserve">
-                <g>
-                    <linearGradient id="linear-gradient">
-                        <stop offset="0%" stop-color="#ffffff"/>
-                        <stop offset="100%" stop-color="#000000"/>
-                    </linearGradient>
-                    <path
-                        d="M63.85 0A63.85 63.85 0 1 1 0 63.85 63.85 63.85 0 0 1 63.85 0zm.65 19.5a44 44 0 1 1-44 44 44 44 0 0 1 44-44z"
-                        fill="url(#linear-gradient)" fill-rule="evenodd"/>
-                    <animateTransform attributeName="transform"
-                                                                                        type="rotate" from="0 64 64"
-                                                                                        to="360 64 64" dur="1080ms"
-                                                                                        repeatCount="indefinite"/>
-                </g>
-            </svg>
+            <span class="text-3xl text-gray-500 font-bold">Loading...</span>
         </div>
 
     </div>
-    {% include 'base_frames/frames/header.html' %}
 
-    <div class="mt-28 w-screen">
+    {% include 'base_frames/frames/header.html' %}
+    <div class="w-screen mt-20">
 
         {% block content %}
 

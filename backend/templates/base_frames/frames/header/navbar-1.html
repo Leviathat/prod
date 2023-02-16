@@ -1,10 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<nav
+        class="
+                      z-10
+                      flex flex-wrap
+                      items-center
+                      justify-center
+                      w-screen
+                      py-4
+                      hidden
+                      md:block
+                      md:py-0
+                      md:text-center
+                      text-lg text-gray-700
+                      bg-indigo-400
+                    ">
+    <div class="w-2/3 mx-auto flex hidden md:block font-semibold">
+        <ul
+                class="
+                              pt-4
+                              text-base
+                              text-white
+                              md:flex
+                              md:pt-0
+                              font-semibold
+                              ">
+            <li class="md:p-4 md:px-0 -translate-x-4 group">
+                <a class="px-4 py-2 pt-1.5
+                          duration-300
+                          rounded
+                          group-hover:text-purple-400
+                          group-hover:bg-white" href="#"
+                >Адрес магазина</a
+                >
+            </li>
+            <li class="md:p-4 group">
+                <a class="px-4 py-2 pt-1.5
+                          duration-300
+                          rounded
+                          group-hover:text-purple-400
+                          group-hover:bg-white" href="#"
+                >О компании</a
+                >
+            </li>
+            <li class="md:p-4 md:px-0 ml-auto group ">
+                <a class="px-4 py-2 pt-1.5
+                          duration-300
+                          rounded
+                          group-hover:text-purple-400
+                          group-hover:bg-white" href="{% url 'register' %}"
+                >Личный кабинет</a
+                >
+            </li>
+        </ul>
+    </div>
+</nav>

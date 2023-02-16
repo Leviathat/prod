@@ -8,7 +8,7 @@ import jwt
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, phone_number, iin, email, password=None):
+    def create_user(self, phone_number, email, password=None):
         """ Создает и возвращает пользователя с имэйлом, паролем и именем. """
         if phone_number is None:
             raise TypeError('Users must have a username.')
@@ -16,7 +16,7 @@ class UserManager(BaseUserManager):
         if email is None:
             raise TypeError('Users must have an email address.')
 
-        user = self.model(phone_number=phone_number, iin=iin, email=self.normalize_email(email))
+        user = self.model(phone_number=phone_number, email=self.normalize_email(email))
         user.set_password(password)
         user.save()
 

@@ -1,10 +1,224 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{#  CART REVEALED BLACK BACKGROUND #}
+<div class="
+                fixed
+                top-0
+                z-20
+                bg-black/75
+                w-screen
+                h-screen
+                "
+     :class="{'hidden': cart_hidden}"
+>
+
+</div>
+
+{#  CART REVEALED BLACK BACKGROUND END #}
+
+{#  CART REVEALED  #}
+<div
+        :class="{'hidden': cart_hidden}"
+        class="fixed
+                left-1/2 top-1 mt-20
+                w-full md:w-2/4 mx-auto
+                bg-zinc-100
+                md:bg-zinc-100/80
+                transform -translate-x-1/2 z-30
+                flex flex-col
+                p-5
+                md:rounded-lg
+                z-31
+                drop-shadow-2xl
+                border-t-4 border-indigo-500
+                "
+>
+    <div class="w-full
+                    text-center
+                    pb-5
+                    "
+         :class="{'h-56':cart_empty}">
+                    <span v-if="cart_empty"
+                          class="
+                            text-lg
+                            text-slate-500
+
+                            ">
+                        Корзина пуста
+                    </span>
+        <span v-else
+              class="
+                            text-lg
+                            font-semibold
+
+                            ">
+                        Корзина
+                    </span>
+
+        <div v-on:click="cart_reveal"
+             class="absolute
+                                right-1 top-1
+                                hover:text-red-500
+                                transition
+                                duration-300
+                                ease-in-out
+                                cursor-pointer
+                                ">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="32"
+                 height="32"
+                 fill="currentColor"
+                 class="bi bi-x"
+                 viewBox="0 0 16 16"
+            >
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+        </div>
+    </div>
+
+    {# CART PRDOUCTS #}
+    <div class="w-full" v-if="cart != null">
+        <div class="w-full" v-for="product in Object.entries(cart)">
+            <div class="w-full  flex mb-2 pt-2 flex-row justify-between drop-shadow-sm">
+                <div class="flex flex-row justify-start">
+                    <div class="
+                            md:bg-white
+                            bg-indigo-100
+                            border-indigo-400/75
+                            border-l-2
+                            w-auto
+                            p-2
+                            pl-2.5
+                            pt-2.5
+                            md:p-2
+                            md:pl-3
+                            font-bold
+                            text-sm
+                            md:text-base
+                            text-stone-800
+                            ">
+                            <span class="whitespace-nowrap">
+                                [[ product[1].name ]]
+                            </span>
+                    </div>
+
+                    <div class="rounded-md
+                            w-auto
+                            ml-2
+                            hidden
+                            md:block
+                            p-2
+                            text-green-500
+                            hover:bg-green-500
+                            hover:text-stone-50
+                            transition
+                            duration-300
+                            items-center
+                            flex
+                            ">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="24"
+                             height="24"
+                             fill="currentColor"
+                             class="bi bi-plus cursor-pointer"
+                             viewBox="0 0 16 16">
+                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                        </svg>
+
+                    </div>
+
+                    <div class="rounded-md
+                            w-auto
+                            ml-2
+                            hidden
+                            md:block
+                            p-2
+                            text-red-500
+                            hover:bg-rose-500
+                            hover:text-stone-50
+                            transition
+                            duration-300
+                            items-center
+                            flex">
+
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             width="24"
+                             height="24"
+                             fill="currentColor"
+                             class="bi bi-dash cursor-pointer"
+                             viewBox="0 0 16 16">
+                            <path d="M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z"/>
+                        </svg>
+                    </div>
+
+                </div>
+                <div class="flex flex-row justify-end">
+                    <div class="bg-indigo-300
+                            rounded-l-md
+                            w-auto
+                            p-2
+                            px-4
+                            pt-3
+                            md:p-2
+                            font-bold
+                            text-stone-800
+                            text-sm
+                            md:text-base">
+
+                            <span class="
+                                    whitespace-nowrap">
+                                [[ product[1].quantity ]]
+                            </span>
+                    </div>
+                    <div class="bg-white
+                            rounded-r-md
+                            w-auto
+                            p-2
+                            pt-3
+                            md:p-2
+                            mr-2
+                            font-bold
+                            text-stone-800
+                            text-sm
+                            md:text-base">
+
+                            <span class="
+                                    whitespace-nowrap">
+                                [[ product[1].price * product[1].quantity ]] ₸
+                            </span>
+                    </div>
+                    <div v-on:click="remove_from_cart([[ product[0] ]])"
+                         class="
+                hover:bg-rose-500
+                hover:text-stone-50
+                p-2
+                rounded-md
+                text-sm
+                transition
+                duration-300
+                text-red-500
+                ">
+                        <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                fill="currentColor"
+                                class="bi bi-cart-dash cursor-pointer" viewBox="0 0 16 16">
+                            <path d="M6.5 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4z"/>
+                            <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {# CART PRDOUCTS END #}
+
+    <div class="w-full
+                    text-center
+                    pb-5
+                    mt-5
+                    ">
+        <a href="/checkout/"
+           class="sm:w-5/6 md:w-1/3  cursor-pointer bg-indigo-300 hover:bg-indigo-100 hover:text-indigo-800 duration-300 px-5 py-2 pb-3 text-xl font-bold rounded-md inline-block align-top">Заказать</a>
+    </div>
+</div>
+{#  CART REVEALED END  #}
