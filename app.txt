@@ -10,8 +10,8 @@ const app = createApp({
             navbar_hidden: true,
             cart: JSON.parse(getCookie('cart')),
             jwt_token: getCookie('jwt'),
-
             rendered: false,
+
             cart_hidden: true,
             alerts: [],
             fio: null,
@@ -29,9 +29,6 @@ const app = createApp({
             message: null,
             pass: null,
             pass_rep: null,
-
-
-            profile_selected_nav: 1
         }
     },
     computed: {
@@ -65,9 +62,6 @@ const app = createApp({
         }
     },
     methods: {
-        profile_select_nav(i) {
-            this.profile_selected_nav = i
-        },
         // REGISTER
         send_otp() {
             if (this.phone && this.phone.toString().length === 11) {
@@ -83,11 +77,11 @@ const app = createApp({
             document.cookie = 'jwt=' + this.jwt_token + ";domain=;path=/"
         },
         profile() {
-            if (this.jwt_token === null) {
+            if (this.cart === null) {
                 window.location.href = "/login/"
             }
             else {
-                axios.get('/api/user/', {
+                axios.post('/api/user/', {
                     headers: {
                         'Authorization': 'token $jwt'.replace('$jwt', this.jwt_token)
                     }
@@ -99,7 +93,6 @@ const app = createApp({
                         console.log(error.response.data);
                     }
                 });
-                window.location.href = "/profile/"
             }
         },
         register() {
@@ -129,11 +122,9 @@ const app = createApp({
             axios.post('/api/users/login/', {
                 "user": user
             }).then(res => {
-                console.log(res)
                 this.jwt_token = res.data.user.token
                 getAlert('success', 'Вы успешно зашли')
                 this.set_token()
-                window.location.href = "/profile/"
             }).catch((error) => {
                 getAlert('error', 'Возникла ошибка при авторизации')
                 if (error.response) {

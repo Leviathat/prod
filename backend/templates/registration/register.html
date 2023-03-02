@@ -1,26 +1,29 @@
 {% extends 'base_frames/base.html' %}
 {% load static %}
 
-{% block head_scripts %}
-    <script src="https://cdn.tailwindcss.com"></script>
-{% endblock head_scripts %}
-
 {% block title %}
     <title>Регистрация</title>
 {% endblock title %}
 
-
 {% block content %}
     {#  REGISTER  #}
     <div class="mt-20 md:mt-36 sm:w-full md:w-2/3 mx-auto">
-        <div class="flex flex-col items-center justify-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
+        <div class="flex flex-col items-center justify-center border-b bg-white py-4 sm:px-10 lg:px-20 xl:px-32">
             <a href="#" class="text-2xl font-bold text-gray-800">Регистрация</a>
+            <div class="flex justify-center w-full">
+                    <span class="font-medium text-gray-400">Уже есть аккаунт ?
+                        <a class="text-indigo-400" href="{% url 'login' %}">
+                            Авторизуйтесь
+                        </a>
+                    </span>
+            </div>
         </div>
 
         {# FORM #}
         <div class="grid lg:grid-cols-2 bg-white">
 
             <div class="px-4 md:px-0 pt-8 group flex flex-col justify-between">
+
                 <div class="w-full text-center">
                     <p class="text-xl font-medium">Номер телефона </p>
                     <p class="text-gray-400">Введите номер телефона для дальнейшей верификации</p>
@@ -105,7 +108,7 @@
                 </div>
             </div>
 
-            <div class="bg-zinc-100 px-4 lg:mt-0 duration-400" :class="{'':!verified}">
+            <div class="bg-zinc-100 px-4 lg:mt-0 duration-400" :class="{'blur':!verified}">
                 <div class="w-full">
                     <label for="email" class="mt-4 mb-2 block text-sm font-medium">Почта</label>
                     <div class="relative">
@@ -122,9 +125,9 @@
                         </div>
                     </div>
 
-                    <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Как к вам обращаться ?</label>
+                    <label for="fio" class="mt-4 mb-2 block text-sm font-medium">Как к вам обращаться ?</label>
                     <div class="relative">
-                        <input type="text" id="fio" v-model="fio" name="card-holder"
+                        <input type="text" id="fio" v-model="fio" name="fio"
                                class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                placeholder="ФИО"
                                :disabled="!verified"/>
@@ -137,9 +140,9 @@
                         </div>
                     </div>
 
-                    <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Введите пароль</label>
+                    <label for="pass" class="mt-4 mb-2 block text-sm font-medium">Введите пароль</label>
                     <div class="relative">
-                        <input type="password" id="card-holder" v-model="pass" name="card-holder"
+                        <input type="password" id="pass" v-model="pass" name="card-holder"
                                class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-blue-500 focus:ring-blue-500"
                                placeholder="Пароль"
                                :disabled="!verified"/>
@@ -170,7 +173,7 @@
                 </div>
                 <button v-on:click="register"
                         :disabled="!verified"
-                        class="mt-4 mb-8 w-full rounded-lg duration-300
+                        class="mt-8 mb-8 w-full rounded-lg duration-300
                                text-indigo-400 border-2 border-indigo-400
                                enabled:hover:bg-indigo-400 hover:text-white
                                x-6 py-3 font-medium

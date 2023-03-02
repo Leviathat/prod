@@ -4,20 +4,25 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    <link rel = "icon" src="" type = "image">
+    <link rel="icon" src="" type="image">
+
     {% block title %}
     {% endblock title %}
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="{% static 'Js/Vue/app.js' %}"></script>
     {% block head_scripts %}
     {% endblock head_scripts %}
-    <script type="module" src="{% static 'Js/Vue/app.js' %}"></script>
+
     <link rel="stylesheet" href="{% static 'alerts.css' %}">
     <link rel="stylesheet" href="{% static 'default.css' %}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.6.3/flowbite.min.css" rel="stylesheet"/>
 </head>
 <body class="bg-indigo-400">
 
 <div class="wrapper" id="wrapper">
     {% include 'base_frames/frames/alerts/alerts.html' %}
+
     <div class="fixed
                 top-0
                 bg-white z-50
@@ -25,8 +30,8 @@
                 h-screen
                 duration-300
                 "
-                :class="{'invisible': rendered}"
-                >
+         :class="{'invisible': rendered}"
+    >
 
 
         <div class="w-full
@@ -39,15 +44,15 @@
         </div>
 
     </div>
-
     {% include 'base_frames/frames/header.html' %}
-    <div class="w-screen mt-20">
 
-        {% block content %}
+        <div class="w-screen mt-20">
 
-        {% endblock content %}
+            {% block content %}
 
-    </div>
+            {% endblock content %}
+
+        </div>
 
 </div>
 

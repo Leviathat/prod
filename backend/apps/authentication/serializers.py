@@ -13,7 +13,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         min_length=8,
         write_only=True
     )
-
+    fio = serializers.CharField(max_length=255, allow_blank=True)
     # Клиентская сторона не должна иметь возможность отправлять токен вместе с
     # запросом на регистрацию. Сделаем его доступным только на чтение.
     token = serializers.CharField(max_length=255, read_only=True)
@@ -22,7 +22,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         model = User
         # Перечислить все поля, которые могут быть включены в запрос
         # или ответ, включая поля, явно указанные выше.
-        fields = ['email', 'phone_number', 'password', 'token']
+        fields = ['email', 'phone_number', 'password', 'token', 'fio']
 
     def create(self, validated_data):
         # Использовать метод create_user, который мы

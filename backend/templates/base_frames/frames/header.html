@@ -7,20 +7,11 @@
                 flex-col
                 ">
         {% block navbars %}
-
-            {# NAVBAR #1 #}
             {% include 'base_frames/frames/header/navbar-1.html' %}
-            {# NAVBAR #1 END #}
 
-            {# NAVBAR #2 #}
             {% include 'base_frames/frames/header/navbar-2.html' %}
-            {# NAVBAR #2 END #}
-
         {% endblock navbars %}
 
-
-    </div>
-    {% if request.path !=  '/checkout/' %}
         {% include 'base_frames/frames/cart_products.html' %}
-    {% endif %}
+    </div>
 </header>

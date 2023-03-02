@@ -14,6 +14,14 @@ class RegisterView(TemplateView):
     template_name = "register.html"
 
 
+class LoginView(TemplateView):
+    template_name = "login.html"
+
+
+class ProfileView(TemplateView):
+    template_name = "profile.html"
+    
+
 class ProductDetailView(DetailView):
     model = Product
     template_name = "product_article.html"

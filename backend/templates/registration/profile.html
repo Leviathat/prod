@@ -1,0 +1,190 @@
+{% extends 'base_frames/base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Регистрация</title>
+{% endblock title %}
+
+
+{% block content %}
+    {#  REGISTER  #}
+    <div class="mt-20 md:mt-36 sm:w-full md:w-2/3 mx-auto bg-white">
+        <div class="flex justify-between border-b bg-white py-4 px-5 sm:px-10 lg:px-5">
+            <span class="text-2xl font-bold text-gray-800 transform-uppercase">Профиль</span>
+            <div class="edit flex items-center cursor-pointer">
+                <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                    <g id="SVGRepo_iconCarrier">
+                        <path d="M13 21H21" stroke="#323232" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                        <path d="M20.0651 7.39423L7.09967 20.4114C6.72438 20.7882 6.21446 21 5.68265 21H4.00383C3.44943 21 3 20.5466 3 19.9922V18.2987C3 17.7696 3.20962 17.2621 3.58297 16.8873L16.5517 3.86681C19.5632 1.34721 22.5747 4.87462 20.0651 7.39423Z"
+                              stroke="#323232" stroke-width="2" stroke-linecap="round"
+                              stroke-linejoin="round"></path>
+                        <path d="M15.3097 5.30981L18.7274 8.72755" stroke="#323232" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round"></path>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        {# FORM #}
+        <div class="flex flex-col md:flex-row">
+            <div class="flex flex-col">
+                <div class="bg-zinc-50 lg:mt-0 duration-400 flex flex-col items-center ">
+                    <div class="antialiased bg-gray-200 w-full md:w-auto p-8">
+                        <div class="flex justify-center">
+                            <nav id="nav" class="relative">
+                                  <span class="hidden md:block absolute h-10 w-full bg-white rounded-lg shadow ease-out transition-transform transition-medium"
+                                        :style="{ transform: `translateY(calc(100% * ${profile_selected_nav}))` }"
+                                  ></span>
+
+                                <ul class="relative flex flex-row md:flex-col">
+                                    <li>
+                                        <button
+                                                type="button"
+                                                @click="profile_select_nav(0)"
+                                                :aria-selected="profile_selected_nav === 0"
+                                                class="py-2 px-3 w-full flex items-center focus:outline-none focus-visible:underline"
+                                        >
+                                            <svg
+                                                    :class="profile_selected_nav === 0 ? 'text-indigo-400' : 'text-gray-500'"
+                                                    class="hidden md:block h-6 w-6 transition-all ease-out transition-medium"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                            >
+                                                <path
+                                                        fill-rule="evenodd"
+                                                        clip-rule="evenodd"
+                                                        d="M12.707 2.293a1 1 0 00-1.414 0l-9 9a1 1 0 101.414 1.414L4 12.414V21a1 1 0 001 1h5a1 1 0 001-1v-6h2v6a1 1 0 001 1h5a1 1 0 001-1v-8.586l.293.293a1 1 0 001.414-1.414l-9-9zM18 10.414l-6-6-6 6V20h3v-6a1 1 0 011-1h4a1 1 0 011 1v6h3v-9.586z"
+                                                />
+                                            </svg>
+                                            <span
+                                                    :class="profile_selected_nav === 0 ? 'text-indigo-600' : 'text-gray-700'"
+                                                    class="align-middle ml-2 text-sm font-medium transition-all ease-out transition-medium"
+                                            >
+              Аккаунт
+            </span>
+                                        </button>
+                                    </li>
+
+                                    <li>
+                                        <button
+                                                type="button"
+                                                @click="profile_select_nav(1)"
+                                                :aria-selected="profile_selected_nav === 1"
+                                                class="py-2 px-3 w-full flex items-center focus:outline-none focus-visible:underline"
+                                        >
+                                            <svg
+                                                    :class="profile_selected_nav === 1 ? 'text-indigo-400' : 'text-gray-500'"
+                                                    class="hidden md:block h-6 w-6 transition-all ease-out transition-medium"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                            >
+                                                <path
+                                                        fill-rule="evenodd"
+                                                        clip-rule="evenodd"
+                                                        d="M7 10a3 3 0 013-3h8a3 3 0 013 3v8a3 3 0 01-3 3h-8a3 3 0 01-3-3v-8zm3-1a1 1 0 00-1 1v8a1 1 0 001 1h8a1 1 0 001-1v-8a1 1 0 00-1-1h-8z"
+                                                />
+                                                <path
+                                                        fill-rule="evenodd"
+                                                        clip-rule="evenodd"
+                                                        d="M3 6a3 3 0 013-3h10a1 1 0 110 2H6a1 1 0 00-1 1v10a1 1 0 11-2 0V6z"
+                                                />
+                                            </svg>
+                                            <span
+                                                    :class="profile_selected_nav === 1 ? 'text-indigo-600' : 'text-gray-700'"
+                                                    class="ml-2 text-sm font-medium transition-all ease-out transition-medium"
+                                            >
+              Ожидаемые
+            </span>
+                                        </button>
+                                    </li>
+
+                                    <li>
+                                        <button
+                                                type="button"
+                                                @click="profile_select_nav(2)"
+                                                :aria-selected="profile_selected_nav === 2"
+                                                class="py-2 px-3 w-full flex items-center focus:outline-none focus-visible:underline"
+                                        >
+                                            <svg
+                                                    :class="profile_selected_nav === 2 ? 'text-indigo-400' : 'text-gray-500'"
+                                                    class="hidden md:block h-6 w-6 transition-all ease-out transition-medium"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                            >
+                                                <path
+                                                        fill-rule="evenodd"
+                                                        clip-rule="evenodd"
+                                                        d="M4 5a3 3 0 013-3h10a3 3 0 013 3v16a1 1 0 01-1.447.894L12 18.618l-6.553 3.276A1 1 0 014 21V5zm3-1a1 1 0 00-1 1v14.382l5.553-2.776a1 1 0 01.894 0L18 19.382V5a1 1 0 00-1-1H7z"
+                                                />
+                                            </svg>
+                                            <span
+                                                    :class="profile_selected_nav === 2 ? 'text-indigo-600' : 'text-gray-700'"
+                                                    class="ml-2 text-sm font-medium transition-all ease-out transition-medium"
+                                            >
+              Избранные
+            </span>
+                                        </button>
+                                    </li>
+
+                                    <li>
+                                        <button
+                                                type="button"
+                                                @click="profile_select_nav(3)"
+                                                :aria-selected="profile_selected_nav === 3"
+                                                class="py-2 px-3 w-full flex items-center focus:outline-none focus-visible:underline"
+                                        >
+                                            <svg
+                                                    :class="profile_selected_nav === 3 ? 'text-indigo-400' : 'text-gray-500'"
+                                                    class="hidden md:block h-6 w-6 transition-all ease-out transition-medium"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                            >
+                                                <path
+                                                        fill-rule="evenodd"
+                                                        clip-rule="evenodd"
+                                                        d="M13 11.586l2.536 2.535a1 1 0 11-1.415 1.415l-2.828-2.829A.997.997 0 0111 12V8a1 1 0 112 0v3.586z"
+                                                />
+                                                <path
+                                                        fill-rule="evenodd"
+                                                        clip-rule="evenodd"
+                                                        d="M5 1a1 1 0 011 1v1.998c3.918-2.945 9.506-2.635 13.071.93 3.905 3.906 3.905 10.238 0 14.143-3.905 3.905-10.237 3.905-14.142 0A9.972 9.972 0 012 12a1 1 0 112 0 8 8 0 101.777-5.029A1 1 0 014 6.341V2a1 1 0 011-1z"
+                                                />
+                                                <path
+                                                        fill-rule="evenodd"
+                                                        clip-rule="evenodd"
+                                                        d="M11.293 12.707A.997.997 0 0111 12V8a1 1 0 112 0v3.586l2.536 2.535a1 1 0 11-1.415 1.415l-2.828-2.829zM5.934 1.643A1 1 0 004 2v4.342a1 1 0 001.777.63A8 8 0 114 12v-.001a1 1 0 10-2 0c0 2.558.977 5.119 2.929 7.071 3.905 3.905 10.237 3.905 14.142 0 3.844-3.844 3.904-10.04.18-13.957A10.004 10.004 0 006 3.999V2a.998.998 0 00-.066-.357zM5 2.25z"
+                                                />
+                                            </svg>
+                                            <span
+                                                    :class="profile_selected_nav === 3 ? 'text-indigo-600' : 'text-gray-700'"
+                                                    class="align-middle ml-2 text-sm font-medium transition-all ease-out transition-medium"
+                                            >
+              Заказы
+            </span>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    {#  REGISTER  END #}
+
+
+{% endblock content %}
+
+{% block any_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"
+            integrity="sha512-JEXkqJItqNp0+qvX53ETuwTLoz/r1Tn5yTRnZWWz0ghMKM2WFCEYLdQnsdcYnryMNANMAnxNcBa/dN7wQtESdw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+{% endblock any_js %}

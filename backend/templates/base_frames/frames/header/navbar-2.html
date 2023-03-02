@@ -78,14 +78,7 @@
                     >Лидеры продаж</a
                     >
                 </li>
-                <li class="relative group">
-                    <a class="md:p-4 py-2 block hover:text-purple-400" href="#"
-                    ></a
-                    >
-                </li>
-
-
-                <li class="flex"
+                <li class="flex mt-2"
                     v-on:click="cart_reveal">
                     <a
                             class="md:p-4 md:hidden block py-2 hover:text-purple-400"
@@ -103,11 +96,18 @@
                                     border-b-purple-400
                                     ">[[cart_total]]</span>
                 </li>
+                <li class="flex mt-2">
+                    <span class="md:p-4 md:hidden block py-2 hover:text-purple-400"
+                       v-on:click="profile">
+                        Аккаунт
+                    </span>
+                </li>
 
             </ul>
         </div>
 
-        <div class="w-full
+        {% if request.path !=  '/checkout/' %}
+            <div class="w-full
                     md:flex
                     md:items-center
                     md:w-auto
@@ -120,11 +120,10 @@
                     cursor-pointer
                     group
                     "
-             v-on:click="cart_reveal"
-             id="cart"
-        >
-            <span class="font-medium">[[ cart_total ]]</span>
-            {% if request.path !=  '/checkout/' %}
+                 v-on:click="cart_reveal"
+                 id="cart"
+            >
+                <span class="font-medium hidden md:block">[[ cart_total ]]</span>
                 <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -135,8 +134,15 @@
                     <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM3.102 4l1.313 7h8.17l1.313-7H3.102zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
                 </svg>
 
-                </div>
-            {% endif %}
+            </div>
+        {% else %}
+            <div class="w-full
+                    md:items-center
+                    md:w-auto
+                    md:p-2
+                    ">
+            </div>
+        {% endif %}
     </div>
 
 </nav>
