@@ -53,6 +53,7 @@ const app = createApp({
                     return counter;
                 }, 0)
             }
+            return 0
         },
         cart_summary: function () {
             if (this.cart != null) {

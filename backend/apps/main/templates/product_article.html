@@ -2,9 +2,8 @@
 {% load static %}
 
 {% block title %}
-    <title>{{ product.name }}</title>
+    <title>{{ product.name }} - {{ product.brand }}</title>
 {% endblock title %}
-
 
 {% block content %}
 
@@ -18,7 +17,7 @@
                     flex-col
                     rounded-xl
                     md:flex-row
-                    drop-shadow-2xl
+                    drop-shadow-xl
                     ">
             <div class="md:w-1/2 w-full drop-shadow-2xl">
                 {% if product.image %}
@@ -56,6 +55,7 @@
                     </span>
                 </div>
                 <div class="w-full flex flex-row justify-between py-2 px-4">
+
                     <div class="flex flex-col justify-center cursor-pointer group">
                         <div class="rounded group-hover:bg-white duration-300 p-1">
 
@@ -67,6 +67,7 @@
                         </div>
 
                     </div>
+
                     <button v-on:click="add_to_cart({{ product.product_info }})"
                             class="place-self-center
                                relative
