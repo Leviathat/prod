@@ -47,7 +47,10 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = (
   'http://localhost:8000',
+  'https://www.notrated.duckdns.org',
 )
+
+CSRF_TRUSTED_ORIGINS = ['https://www.notrated.duckdns.org']
 AUTH_USER_MODEL = 'authentication.User'
 
 REST_FRAMEWORK = {
@@ -103,9 +106,14 @@ DATABASES = {
     }
 }
 
-BOT_TOKEN = '5554883324:AAFltxc8VPuXdVYqhr_k13kU7aAU9uzkJNo'
+BOT_TOKEN = env('BOT_TOKEN')
 BOT_URL = "https://api.telegram.org/bot" + BOT_TOKEN
-BOT_CHAT_ID = '832855518'
+BOT_CHAT_ID = env('BOT_CHAT_ID')
+
+SESSION_COOKIE_SECURE = True
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_HTTPONLY = True
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -136,11 +144,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = None
+STATIC_ROOT = '/var/www/html/static/'
 STATICFILES_DIRS = [
     BASE_DIR / 'static'
 ]
-
 MEDIA_ROOT = 'images/'
 MEDIA_URL = 'images/'
 
