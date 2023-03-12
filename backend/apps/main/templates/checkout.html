@@ -94,7 +94,7 @@
                     <label for="email" class="mt-4 mb-2 block text-sm font-medium">Почта</label>
                     <div class="relative">
                         <input type="text" id="email" v-model="email" name="email"
-                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+                               class="touch-manipulation w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
                                placeholder="your.email@gmail.com"/>
                         <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
@@ -108,7 +108,7 @@
                     <label for="card-holder" class="mt-4 mb-2 block text-sm font-medium">Как к вам обращаться ?</label>
                     <div class="relative">
                         <input type="text" id="card-holder" v-model="fio" name="card-holder"
-                               class="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+                               class="touch-manipulation w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
                                placeholder="ФИО"/>
                         <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-gray-400" fill="none"
@@ -124,7 +124,7 @@
                         <div class="relative w-7/12 flex-shrink-0">
                             <input type="number" id="card-no" name="card-no"
                                    v-model="phone"
-                                   class="appearance-none w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+                                   class="touch-manipulation appearance-none w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
                                    placeholder="7-xxx-xx-xx"/>
                             <div class="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="gray"
@@ -144,7 +144,7 @@
 
                             <select name="billing-state"
                                     v-model="city"
-                                    class="w-full rounded-md border border-gray-200 px-4 py-3 pl-8 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
+                                    class="touch-manipulation w-full rounded-md border border-gray-200 px-4 py-3 pl-8 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-blue-500"
                                     required
                             >
                                 <option value="" disabled selected hidden>Выберите город</option>
@@ -163,7 +163,8 @@
 
                         <input type="text" name="billing-zip"
                                v-model="street"
-                               class="flex-shrink-0
+                               class="touch-manipulation
+				      flex-shrink-0
                                       rounded-md
                                       border
                                       border-gray-200
@@ -178,7 +179,8 @@
 
                         <input type="text" name="billing-zip"
                                v-model="house"
-                               class="flex-shrink-0
+                               class="touch-manipulation
+				      flex-shrink-0
                                       rounded-md
                                       border
                                       border-gray-200
@@ -209,7 +211,7 @@
                     </div>
                 </div>
                 <button v-on:click="make_order"
-                        class="mt-4 mb-8 w-full rounded-lg duration-300 text-indigo-400 border-2 border-indigo-400 hover:bg-indigo-400 hover:text-white px-6 py-3 font-medium text-white">
+                        class="mt-4 mb-8 w-full rounded-lg duration-300 text-indigo-400 border-2 border-indigo-400 hover:bg-indigo-400 hover:text-white px-6 py-3 font-medium">
                     Оформить заказ
                 </button>
             </div>
